@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+/* Remove default margin and set full height */
+html,
+body{
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+/* Background Image */
+body{
+    /*background-image: url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80");*/
+    background-image: url("https://t4.ftcdn.net/jpg/03/07/56/71/240_F_307567102_lcPJUW10EdNeMKBTyUFg41QDWSFg6f0h.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Dark Overlay */
+.overlay{
+    min-height:100vh;
+    background:rgba(0,0,0,0.55);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Main Card */
+.card-box{
+    width:550px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 8px 25px rgba(0,0,0,.4);
+    text-align:center;
+}
+
+.card-box h1{
+    color:white;
+    font-weight:bold;
+    margin-bottom:30px;
+}
+
+.btn{
+    width:180px;
+    margin:10px;
+    font-size:18px;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
