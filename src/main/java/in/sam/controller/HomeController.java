@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import in.sam.entity.Student;
 import in.sam.service.StdService;
+import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
@@ -45,8 +47,11 @@ public class HomeController {
 
 	// Save Student
 	@PostMapping("/save")
-	public String registration(@ModelAttribute("student") Student std) {
-
+	public String registration(@Valid @ModelAttribute("student") Student std, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			System.out.println("Error Occur in Save block While filling Filds....");
+			return "registration";
+		}
 		service.stdsave(std);
 
 		return "redirect:/display";
@@ -88,5 +93,16 @@ public class HomeController {
 		service.stdDelete(id);
 
 		return "redirect:/display";
+	}
+	
+	@GetMapping("/search")
+	public String searchStudent(@RequestParam("keyword") String keyword,
+	                            Model model) {
+
+	    List<Student> students = service.searchStudent(keyword);
+
+	    model.addAttribute("students", students);
+
+	    return "display";
 	}
 }

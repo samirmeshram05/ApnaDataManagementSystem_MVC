@@ -15,4 +15,7 @@ public interface StdService {
 	public void stdDelete(Integer id);
 
 	public Student stdupdate(Student std);
+	
+	List<Student> searchStudent(String keyword);
+	
 }

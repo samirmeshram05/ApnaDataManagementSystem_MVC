@@ -27,29 +27,41 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 30px;
 }
 
 .card {
-	width: 650px;
-	border-radius: 15px;
-	box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+	width: 700px;
+	border-radius: 18px;
+	border: none;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
 }
 
 .card-header {
-	text-align: center;
-	font-size: 28px;
-	font-weight: bold;
 	background: #0d6efd;
 	color: white;
-	padding: 20px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	padding: 18px;
 }
 
 .form-label {
 	font-weight: bold;
 }
 
+.required {
+	color: red;
+}
+
+.error {
+	color: red;
+	font-size: 14px;
+	font-weight: bold;
+}
+
 .btn {
-	width: 100%;
+	font-weight: bold;
 }
 </style>
 
@@ -60,7 +72,9 @@ body {
 	<div class="card">
 
 		<div class="card-header">
+
 			<i class="bi bi-person-plus-fill"></i> Student Registration
+
 		</div>
 
 		<div class="card-body">
@@ -69,22 +83,35 @@ body {
 				method="post" modelAttribute="student">
 
 				<div class="mb-3">
-					<label class="form-label">Student Name</label>
+
+					<label class="form-label"> Student Name <span
+						class="required">*</span>
+					</label>
 
 					<form:input path="name" cssClass="form-control"
 						placeholder="Enter Student Name" />
+
+					<form:errors path="name" cssClass="error" />
+
 				</div>
 
 				<div class="mb-3">
-					<label class="form-label">Email Address</label>
+
+					<label class="form-label"> Email Address <span
+						class="required">*</span>
+					</label>
 
 					<form:input path="email" type="email" cssClass="form-control"
-						placeholder="Enter Email" />
+						placeholder="Enter Email Address" />
+
+					<form:errors path="email" cssClass="error" />
+
 				</div>
 
 				<div class="mb-3">
 
-					<label class="form-label">Gender</label>
+					<label class="form-label"> Gender <span class="required">*</span>
+					</label>
 
 					<div class="form-check">
 
@@ -104,11 +131,14 @@ body {
 
 					</div>
 
+					<form:errors path="gender" cssClass="error" />
+
 				</div>
 
 				<div class="mb-3">
 
-					<label class="form-label">Course</label>
+					<label class="form-label"> Course <span class="required">*</span>
+					</label>
 
 					<form:select path="course" cssClass="form-select">
 
@@ -120,11 +150,15 @@ body {
 
 					</form:select>
 
+					<form:errors path="course" cssClass="error" />
+
 				</div>
 
-				<div class="mb-3">
+				<div class="mb-4">
 
-					<label class="form-label">Preferred Timing</label>
+					<label class="form-label"> Preferred Timing <span
+						class="required">*</span>
+					</label>
 
 					<form:select path="timing" cssClass="form-select">
 
@@ -136,15 +170,42 @@ body {
 
 					</form:select>
 
+					<form:errors path="timing" cssClass="error" />
+
 				</div>
 
-				<div class="d-grid">
+				<div class="row">
 
-					<button type="submit" class="btn btn-success btn-lg">
+					<div class="col-md-4 d-grid">
 
-						<i class="bi bi-check-circle-fill"></i> Register Student
+						<button type="submit" class="btn btn-success">
 
-					</button>
+							<i class="bi bi-check-circle-fill"></i> Register
+
+						</button>
+
+					</div>
+
+					<div class="col-md-4 d-grid">
+
+						<button type="reset" class="btn btn-warning">
+
+							<i class="bi bi-arrow-clockwise"></i> Reset
+
+						</button>
+
+					</div>
+
+					<div class="col-md-4 d-grid">
+
+						<a href="${pageContext.request.contextPath}/"
+							class="btn btn-secondary"> <i class="bi bi-house-fill"></i>
+
+							Home
+
+						</a>
+
+					</div>
 
 				</div>
 
@@ -155,5 +216,4 @@ body {
 	</div>
 
 </body>
-
 </html>

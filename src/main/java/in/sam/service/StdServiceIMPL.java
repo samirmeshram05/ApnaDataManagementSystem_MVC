@@ -52,5 +52,12 @@ public class StdServiceIMPL implements StdService {
 		Student save = repo.save(std);
 		return save;
 	}
+	
+	@Override
+	public List<Student> searchStudent(String keyword) {
+
+	    return repo.searchStudent(keyword);
+
+	}
 
 }
