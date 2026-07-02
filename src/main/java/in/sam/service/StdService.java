@@ -2,6 +2,8 @@ package in.sam.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import in.sam.entity.Student;
 
 public interface StdService {
@@ -17,5 +19,8 @@ public interface StdService {
 	public Student stdupdate(Student std);
 	
 	List<Student> searchStudent(String keyword);
+	
+	Page<Student> getStudents(int page);
+
 	
 }

@@ -3,6 +3,7 @@ package in.sam.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,14 +58,14 @@ public class HomeController {
 		return "redirect:/display";
 	}
 
-	// Display Students
+	/*// Display Students
 	@GetMapping("/display")
 	public String displaystd(Model model) {
 
 		model.addAttribute("students", service.stdFindAll());
 
 		return "display";
-	}
+	}*/
 
 	// Load Update Form
 	@GetMapping("/update")
@@ -102,6 +103,22 @@ public class HomeController {
 	    List<Student> students = service.searchStudent(keyword);
 
 	    model.addAttribute("students", students);
+
+	    return "display";
+	}
+	
+	@GetMapping("/display")
+	public String displayStudents(
+	        @RequestParam(defaultValue = "0") int page,
+	        Model model) {
+
+	    Page<Student> studentPage = service.getStudents(page);
+
+	    model.addAttribute("students", studentPage.getContent());
+
+	    model.addAttribute("currentPage", page);
+
+	    model.addAttribute("totalPages", studentPage.getTotalPages());
 
 	    return "display";
 	}
