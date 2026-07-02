@@ -1,5 +1,9 @@
 package in.sam.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.sam.entity.Student;
 import in.sam.service.StdService;
@@ -48,12 +54,25 @@ public class HomeController {
 
 	// Save Student
 	@PostMapping("/save")
-	public String registration(@Valid @ModelAttribute("student") Student std, BindingResult result, Model model) {
+	public String registration(@Valid @ModelAttribute("student") Student std, BindingResult result, Model model , @RequestParam("image") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
 		if (result.hasErrors()) {
 			System.out.println("Error Occur in Save block While filling Filds....");
 			return "registration";
 		}
+		String fileName=file.getOriginalFilename();
+
+	    String uploadDir="src/main/resources/static/images/";
+
+	    Path path=Paths.get(uploadDir+fileName);
+
+	    Files.write(path,file.getBytes());
+
+	    std.setPhoto(fileName);
+		
 		service.stdsave(std);
+		
+		redirectAttributes.addFlashAttribute("success",
+		            "Student Registered Successfully!");
 
 		return "redirect:/display";
 	}

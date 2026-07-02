@@ -29,6 +29,8 @@ public class Student {
 
 	@NotBlank(message = "Select Timing")
 	private String timing;
+	
+	private String photo;
 
 	public Student() {
 
@@ -81,6 +83,14 @@ public class Student {
 
 	public void setTiming(String timing) {
 		this.timing = timing;
+	}
+	
+	public String getPhoto() {
+	    return photo;
+	}
+
+	public void setPhoto(String photo) {
+	    this.photo = photo;
 	}
 
 	@Override
