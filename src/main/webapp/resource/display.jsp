@@ -64,10 +64,12 @@
 								<td>${std.course}</td>
 								<td>${std.timing}</td>
 
-								<td><a href="update?sid=${std.sid}"
+								<td><a
+									href="${pageContext.request.contextPath}/update?id=${std.sid}"
 									class="btn btn-warning btn-sm"> Update </a> <a
-									href="delete?sid=${std.sid}" class="btn btn-danger btn-sm">
-
+									href="${pageContext.request.contextPath}/delete?id=${std.sid}"
+									class="btn btn-danger btn-sm"
+									onclick="return confirm('Are you sure you want to delete this record?');">
 										Delete </a></td>
 
 							</tr>
