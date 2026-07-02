@@ -98,8 +98,7 @@ body {
 					<div class="col-md-3">
 
 						<h2>
-							<i class="bi bi-mortarboard-fill"></i>
-							Student Dashboard
+							<i class="bi bi-mortarboard-fill"></i> Student Dashboard
 						</h2>
 
 					</div>
@@ -111,9 +110,7 @@ body {
 
 							<div class="input-group search-box">
 
-								<input type="text"
-									class="form-control"
-									name="keyword"
+								<input type="text" class="form-control" name="keyword"
 									placeholder="Search Name, Email or Course">
 
 								<button class="btn btn-warning">
@@ -131,27 +128,16 @@ body {
 					<div class="col-md-5 text-end">
 
 						<a href="${pageContext.request.contextPath}/registration"
-							class="btn btn-success">
-
-							<i class="bi bi-person-plus-fill"></i>
+							class="btn btn-success"> <i class="bi bi-person-plus-fill"></i>
 
 							Add Student
 
-						</a>
+						</a> <a href="${pageContext.request.contextPath}/display"
+							class="btn btn-info text-white"> <i
+							class="bi bi-arrow-clockwise"></i> Refresh
 
-						<a href="${pageContext.request.contextPath}/display"
-							class="btn btn-info text-white">
-
-							<i class="bi bi-arrow-clockwise"></i>
-
-							Refresh
-
-						</a>
-
-						<a href="${pageContext.request.contextPath}/"
-							class="btn btn-secondary">
-
-							<i class="bi bi-house-door-fill"></i>
+						</a> <a href="${pageContext.request.contextPath}/"
+							class="btn btn-secondary"> <i class="bi bi-house-door-fill"></i>
 
 							Home
 
@@ -171,15 +157,8 @@ body {
 
 						<h4>
 
-							<i class="bi bi-people-fill text-primary"></i>
-
-							Total Students
-
-							<span class="badge bg-success">
-
-								${students.size()}
-
-							</span>
+							<i class="bi bi-people-fill text-primary"></i> Total Students <span
+								class="badge bg-success"> ${students.size()} </span>
 
 						</h4>
 
@@ -189,19 +168,15 @@ body {
 
 						<button class="btn btn-outline-danger">
 
-							<i class="bi bi-file-earmark-pdf-fill"></i>
-
-							PDF
+							<i class="bi bi-file-earmark-pdf-fill"></i> PDF
 
 						</button>
 
-						<button class="btn btn-outline-success">
+						<a href="${pageContext.request.contextPath}/export/excel"
+							class="btn btn-outline-success"> <i
+							class="bi bi-file-earmark-excel-fill"></i> Export Excel
 
-							<i class="bi bi-file-earmark-excel-fill"></i>
-
-							Excel
-
-						</button>
+						</a>
 
 					</div>
 
@@ -211,28 +186,13 @@ body {
 
 					<div class="col-md-6">
 
-						<strong>Sort By :</strong>
-
-						<a href="display?page=0&sortField=sid&sortDir=${reverseSortDir}"
-							class="btn btn-outline-primary btn-sm">
-
-							ID
-
-						</a>
-
-						<a href="display?page=0&sortField=name&sortDir=${reverseSortDir}"
-							class="btn btn-outline-success btn-sm">
-
-							Name
-
-						</a>
-
-						<a href="display?page=0&sortField=course&sortDir=${reverseSortDir}"
-							class="btn btn-outline-warning btn-sm">
-
-							Course
-
-						</a>
+						<strong>Sort By :</strong> <a
+							href="display?page=0&sortField=sid&sortDir=${reverseSortDir}"
+							class="btn btn-outline-primary btn-sm"> ID </a> <a
+							href="display?page=0&sortField=name&sortDir=${reverseSortDir}"
+							class="btn btn-outline-success btn-sm"> Name </a> <a
+							href="display?page=0&sortField=course&sortDir=${reverseSortDir}"
+							class="btn btn-outline-warning btn-sm"> Course </a>
 
 					</div>
 
@@ -269,9 +229,7 @@ body {
 
 										<tr>
 
-											<td>
-
-												<c:choose>
+											<td><c:choose>
 
 													<c:when test="${not empty std.photo}">
 
@@ -289,9 +247,7 @@ body {
 
 													</c:otherwise>
 
-												</c:choose>
-
-											</td>
+												</c:choose></td>
 
 											<td>${std.sid}</td>
 
@@ -299,58 +255,38 @@ body {
 
 											<td>${std.email}</td>
 
-											<td>
-
-												<c:choose>
+											<td><c:choose>
 
 													<c:when test="${std.gender=='Male'}">
 
-														<span class="badge bg-primary">
-
-															Male
-
-														</span>
+														<span class="badge bg-primary"> Male </span>
 
 													</c:when>
 
 													<c:otherwise>
 
-														<span class="badge bg-danger">
-
-															Female
-
-														</span>
+														<span class="badge bg-danger"> Female </span>
 
 													</c:otherwise>
 
-												</c:choose>
-
-											</td>
+												</c:choose></td>
 
 											<td>${std.course}</td>
 
 											<td>${std.timing}</td>
 
-											<td>
+											<td><a
+												href="${pageContext.request.contextPath}/update?id=${std.sid}"
+												class="btn btn-warning btn-sm"> <i
+													class="bi bi-pencil-square"></i>
 
-												<a
-													href="${pageContext.request.contextPath}/update?id=${std.sid}"
-													class="btn btn-warning btn-sm">
+											</a> <a
+												href="${pageContext.request.contextPath}/delete?id=${std.sid}"
+												class="btn btn-danger btn-sm"
+												onclick="return confirm('Delete this student?');"> <i
+													class="bi bi-trash-fill"></i>
 
-													<i class="bi bi-pencil-square"></i>
-
-												</a>
-
-												<a
-													href="${pageContext.request.contextPath}/delete?id=${std.sid}"
-													class="btn btn-danger btn-sm"
-													onclick="return confirm('Delete this student?');">
-
-													<i class="bi bi-trash-fill"></i>
-
-												</a>
-
-											</td>
+											</a></td>
 
 										</tr>
 
@@ -366,9 +302,8 @@ body {
 
 											<h4 class="text-danger">
 
-												<i class="bi bi-exclamation-circle-fill"></i>
-
-												No Student Records Found
+												<i class="bi bi-exclamation-circle-fill"></i> No Student
+												Records Found
 
 											</h4>
 
@@ -392,46 +327,29 @@ body {
 
 						<c:if test="${currentPage>0}">
 
-							<li class="page-item">
+							<li class="page-item"><a class="page-link"
+								href="display?page=${currentPage-1}&sortField=${sortField}&sortDir=${sortDir}">
 
-								<a class="page-link"
-									href="display?page=${currentPage-1}&sortField=${sortField}&sortDir=${sortDir}">
-
-									Previous
-
-								</a>
-
-							</li>
+									Previous </a></li>
 
 						</c:if>
 
 						<c:forEach begin="0" end="${totalPages-1}" var="i">
 
-							<li class="page-item ${i==currentPage?'active':''}">
+							<li class="page-item ${i==currentPage?'active':''}"><a
+								class="page-link"
+								href="display?page=${i}&sortField=${sortField}&sortDir=${sortDir}">
 
-								<a class="page-link"
-									href="display?page=${i}&sortField=${sortField}&sortDir=${sortDir}">
-
-									${i+1}
-
-								</a>
-
-							</li>
+									${i+1} </a></li>
 
 						</c:forEach>
 
 						<c:if test="${currentPage<totalPages-1}">
 
-							<li class="page-item">
+							<li class="page-item"><a class="page-link"
+								href="display?page=${currentPage+1}&sortField=${sortField}&sortDir=${sortDir}">
 
-								<a class="page-link"
-									href="display?page=${currentPage+1}&sortField=${sortField}&sortDir=${sortDir}">
-
-									Next
-
-								</a>
-
-							</li>
+									Next </a></li>
 
 						</c:if>
 
@@ -443,11 +361,8 @@ body {
 
 			<div class="card-footer text-center">
 
-				<b>
-					Student Management System |
-					Spring Boot MVC |
-					Developed by Samir Sindhimeshram
-				</b>
+				<b> Student Management System | Spring Boot MVC | Developed by
+					Samir Sindhimeshram </b>
 
 			</div>
 
