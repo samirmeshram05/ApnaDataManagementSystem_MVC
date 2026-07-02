@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lowagie.text.DocumentException;
 
 import in.sam.entity.Student;
+import in.sam.service.EmailService;
 import in.sam.service.StdService;
 import in.sam.util.StudentExcelExporter;
 import in.sam.util.StudentPdfExporter;
@@ -35,6 +36,9 @@ public class HomeController {
 
 	@Autowired
 	private StdService service;
+
+	@Autowired
+	private EmailService emailService;
 
 	// Common data for Registration & Update pages
 	@ModelAttribute
@@ -64,23 +68,45 @@ public class HomeController {
 	@PostMapping("/save")
 	public String registration(@Valid @ModelAttribute("student") Student std, BindingResult result, Model model,
 			@RequestParam("image") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+
 		if (result.hasErrors()) {
-			System.out.println("Error Occur in Save block While filling Filds....");
 			return "registration";
 		}
-		String fileName = file.getOriginalFilename();
 
-		String uploadDir = "src/main/resources/static/images/";
+		// Upload Image
+		if (!file.isEmpty()) {
 
-		Path path = Paths.get(uploadDir + fileName);
+			String fileName = file.getOriginalFilename();
 
-		Files.write(path, file.getBytes());
+			String uploadDir = "src/main/resources/static/images/";
 
-		std.setPhoto(fileName);
+			Files.createDirectories(Paths.get(uploadDir));
 
+			Path path = Paths.get(uploadDir, fileName);
+
+			Files.write(path, file.getBytes());
+
+			std.setPhoto(fileName);
+		}
+
+		// Save Student
 		service.stdsave(std);
 
-		redirectAttributes.addFlashAttribute("success", "Student Registered Successfully!");
+		// ================= Send Email =================
+
+		String subject = "Welcome to Student Management System";
+
+		String body = "Dear " + std.getName() + ",\n\n" + "Welcome to Student Management System.\n\n"
+				+ "Your registration has been completed successfully.\n\n" + "Student Details\n"
+				+ "----------------------------\n" + "Name   : " + std.getName() + "\n" + "Email  : " + std.getEmail()
+				+ "\n" + "Course : " + std.getCourse() + "\n" + "Timing : " + std.getTiming() + "\n\n"
+				+ "Thank you for registering with us.\n\n" + "Regards,\n" + "Student Management Team";
+
+		emailService.sendMail(std.getEmail(), subject, body);
+
+		// ==============================================
+
+		redirectAttributes.addFlashAttribute("success", "Student Registered Successfully & Email Sent.");
 
 		return "redirect:/display";
 	}
