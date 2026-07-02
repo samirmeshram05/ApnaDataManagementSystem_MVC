@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lowagie.text.DocumentException;
+
 import in.sam.entity.Student;
 import in.sam.service.StdService;
 import in.sam.util.StudentExcelExporter;
+import in.sam.util.StudentPdfExporter;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
@@ -172,5 +178,27 @@ public class HomeController {
 		StudentExcelExporter excelExporter = new StudentExcelExporter(listStudents);
 
 		excelExporter.export(response);
+	}
+
+	@GetMapping("/export/pdf")
+	public void exportPdf(HttpServletResponse response) throws DocumentException, IOException {
+
+		response.setContentType("application/pdf");
+
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+
+		String headerValue = "attachment; filename=students_" + currentDateTime + ".pdf";
+
+		response.setHeader(headerKey, headerValue);
+
+		List<Student> students = service.stdFindAll();
+
+		StudentPdfExporter exporter = new StudentPdfExporter(students);
+
+		exporter.export(response);
 	}
 }

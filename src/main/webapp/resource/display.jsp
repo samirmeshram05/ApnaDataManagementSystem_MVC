@@ -166,13 +166,11 @@ body {
 
 					<div class="col-md-6 text-end">
 
-						<button class="btn btn-outline-danger">
+						<a href="${pageContext.request.contextPath}/export/pdf"
+							class="btn btn-outline-danger"> <i
+							class="bi bi-file-earmark-pdf-fill"></i> Export PDF
 
-							<i class="bi bi-file-earmark-pdf-fill"></i> PDF
-
-						</button>
-
-						<a href="${pageContext.request.contextPath}/export/excel"
+						</a> <a href="${pageContext.request.contextPath}/export/excel"
 							class="btn btn-outline-success"> <i
 							class="bi bi-file-earmark-excel-fill"></i> Export Excel
 
