@@ -19,8 +19,8 @@ public interface StdService {
 	public Student stdupdate(Student std);
 	
 	List<Student> searchStudent(String keyword);
-	
-	Page<Student> getStudents(int page);
+		
+	Page<Student> getStudents(int page, String sortField, String sortDir);
 
 	
 }

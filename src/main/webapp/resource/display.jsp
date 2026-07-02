@@ -181,6 +181,22 @@ body {
 
 				<div class="table-responsive">
 
+					<div class="row mb-3">
+
+						<div class="col-md-6">
+
+							<strong>Sort By :</strong> <a
+								href="display?page=0&sortField=sid&sortDir=${reverseSortDir}"
+								class="btn btn-outline-primary btn-sm"> ID </a> <a
+								href="display?page=0&sortField=name&sortDir=${reverseSortDir}"
+								class="btn btn-outline-success btn-sm"> Name </a> <a
+								href="display?page=0&sortField=course&sortDir=${reverseSortDir}"
+								class="btn btn-outline-warning btn-sm"> Course </a>
+
+						</div>
+
+					</div>
+
 					<table class="table table-bordered table-hover table-striped">
 
 						<thead class="table-dark">
@@ -292,11 +308,8 @@ body {
 
 							<c:forEach begin="0" end="${totalPages-1}" var="i">
 
-								<li class="page-item ${i==currentPage?'active':''}">
-
-									<a class="page-link" href="display?page=${i}"> ${i+1} </a>
-
-								</li>
+								<li class="page-item ${i==currentPage?'active':''}"><a
+									class="page-link" href="display?page=${i}"> ${i+1} </a></li>
 
 							</c:forEach>
 

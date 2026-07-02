@@ -58,14 +58,15 @@ public class HomeController {
 		return "redirect:/display";
 	}
 
-	/*// Display Students
-	@GetMapping("/display")
-	public String displaystd(Model model) {
-
-		model.addAttribute("students", service.stdFindAll());
-
-		return "display";
-	}*/
+	/*
+	 * // Display Students
+	 * 
+	 * @GetMapping("/display") public String displaystd(Model model) {
+	 * 
+	 * model.addAttribute("students", service.stdFindAll());
+	 * 
+	 * return "display"; }
+	 */
 
 	// Load Update Form
 	@GetMapping("/update")
@@ -95,31 +96,42 @@ public class HomeController {
 
 		return "redirect:/display";
 	}
-	
+
 	@GetMapping("/search")
-	public String searchStudent(@RequestParam("keyword") String keyword,
-	                            Model model) {
+	public String searchStudent(@RequestParam("keyword") String keyword, Model model) {
 
-	    List<Student> students = service.searchStudent(keyword);
+		List<Student> students = service.searchStudent(keyword);
 
-	    model.addAttribute("students", students);
+		model.addAttribute("students", students);
 
-	    return "display";
+		return "display";
 	}
-	
+
 	@GetMapping("/display")
 	public String displayStudents(
-	        @RequestParam(defaultValue = "0") int page,
-	        Model model) {
 
-	    Page<Student> studentPage = service.getStudents(page);
+			@RequestParam(defaultValue = "0") int page,
 
-	    model.addAttribute("students", studentPage.getContent());
+			@RequestParam(defaultValue = "sid") String sortField,
 
-	    model.addAttribute("currentPage", page);
+			@RequestParam(defaultValue = "asc") String sortDir,
 
-	    model.addAttribute("totalPages", studentPage.getTotalPages());
+			Model model) {
 
-	    return "display";
+		Page<Student> studentPage = service.getStudents(page, sortField, sortDir);
+
+		model.addAttribute("students", studentPage.getContent());
+
+		model.addAttribute("currentPage", page);
+
+		model.addAttribute("totalPages", studentPage.getTotalPages());
+
+		model.addAttribute("sortField", sortField);
+
+		model.addAttribute("sortDir", sortDir);
+
+		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+		return "display";
 	}
 }

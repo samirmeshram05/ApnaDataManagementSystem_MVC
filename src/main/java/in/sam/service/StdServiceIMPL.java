@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import in.sam.entity.Student;
@@ -63,9 +64,11 @@ public class StdServiceIMPL implements StdService {
 	}
 	
 	@Override
-	public Page<Student> getStudents(int page) {
+	public Page<Student> getStudents(int page, String sortField, String sortDir) {
 
-	    PageRequest pageable = PageRequest.of(page, 5);
+		Sort sort = sortDir.equalsIgnoreCase("asc")? Sort.by(sortField).ascending() : Sort.by(sortField).descending() ;
+		
+	    PageRequest pageable = PageRequest.of(page, 5, sort);
 
 	    return repo.findAll(pageable);
 
