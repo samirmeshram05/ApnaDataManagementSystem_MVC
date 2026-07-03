@@ -1,25 +1,42 @@
 package in.sam.service;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+	@Autowired
+	private JavaMailSender mailSender;
 
-    @Override
-    public void sendMail(String to, String subject, String body) {
+	@Override
+	public void sendMail(String to, String subject, String body) {
 
-        SimpleMailMessage message = new SimpleMailMessage();
+		try {
 
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
+			MimeMessage message = mailSender.createMimeMessage();
 
-        mailSender.send(message);
-    }
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+			helper.setTo(to);
+
+			helper.setSubject(subject);
+
+			helper.setText(body, true);
+
+			mailSender.send(message);
+
+		} catch (MessagingException e) {
+
+			e.printStackTrace();
+
+		}
+
+	}
+
 }

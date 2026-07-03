@@ -21,4 +21,9 @@ public interface StdRepo extends JpaRepository<Student, Integer> {
 			""")
 	List<Student> searchStudent(@Param("keyword") String keyword);
 
+	long countByGender(String gender);
+
+	long countByCourse(String course);
+
+	long countByTiming(String timing);
 }

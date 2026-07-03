@@ -94,20 +94,245 @@ public class HomeController {
 
 		// ================= Send Email =================
 
-		String subject = "Welcome to Student Management System";
+		String subject = "🎉 Welcome to Student Management System";
 
-		String body = "Dear " + std.getName() + ",\n\n" + "Welcome to Student Management System.\n\n"
-				+ "Your registration has been completed successfully.\n\n" + "Student Details\n"
-				+ "----------------------------\n" + "Name   : " + std.getName() + "\n" + "Email  : " + std.getEmail()
-				+ "\n" + "Course : " + std.getCourse() + "\n" + "Timing : " + std.getTiming() + "\n\n"
-				+ "Thank you for registering with us.\n\n" + "Regards,\n" + "Student Management Team";
+		String body = """
+		<!DOCTYPE html>
+		<html>
+
+		<head>
+
+		<style>
+
+		body{
+
+		background:#f4f7fb;
+
+		font-family:Arial,Helvetica,sans-serif;
+
+		margin:0;
+
+		padding:40px;
+
+		}
+
+		.card{
+
+		width:650px;
+
+		margin:auto;
+
+		background:#ffffff;
+
+		border-radius:15px;
+
+		overflow:hidden;
+
+		box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+		}
+
+		.header{
+
+		background:linear-gradient(90deg,#0d6efd,#6610f2);
+
+		padding:25px;
+
+		text-align:center;
+
+		color:white;
+
+		font-size:28px;
+
+		font-weight:bold;
+
+		}
+
+		.content{
+
+		padding:35px;
+
+		}
+
+		.content h2{
+
+		color:#198754;
+
+		text-align:center;
+
+		}
+
+		table{
+
+		width:100%%;
+
+		border-collapse:collapse;
+
+		margin-top:25px;
+
+		}
+
+		table td{
+
+		padding:12px;
+
+		border:1px solid #ddd;
+
+		}
+
+		.label{
+
+		background:#f8f9fa;
+
+		font-weight:bold;
+
+		width:180px;
+
+		}
+
+		.button{
+
+		display:inline-block;
+
+		padding:12px 30px;
+
+		background:#198754;
+
+		color:white!important;
+
+		text-decoration:none;
+
+		border-radius:8px;
+
+		font-size:18px;
+
+		margin-top:25px;
+
+		}
+
+		.footer{
+
+		background:#f8f9fa;
+
+		padding:20px;
+
+		text-align:center;
+
+		color:#666;
+
+		font-size:14px;
+
+		}
+
+		</style>
+
+		</head>
+
+		<body>
+
+		<div class="card">
+
+		<div class="header">
+
+		🎓 Student Management System
+
+		</div>
+
+		<div class="content">
+
+		<h2>Registration Successful 🎉</h2>
+
+		<p>Hello <b>%s</b>,</p>
+
+		<p>
+
+		Congratulations!
+
+		Your registration has been completed successfully.
+
+		</p>
+
+		<table>
+
+		<tr>
+
+		<td class="label">Student Name</td>
+
+		<td>%s</td>
+
+		</tr>
+
+		<tr>
+
+		<td class="label">Email</td>
+
+		<td>%s</td>
+
+		</tr>
+
+		<tr>
+
+		<td class="label">Course</td>
+
+		<td>%s</td>
+
+		</tr>
+
+		<tr>
+
+		<td class="label">Timing</td>
+
+		<td>%s</td>
+
+		</tr>
+
+		</table>
+
+		<div style="text-align:center;">
+
+		<a class="button" href="https://github.com">
+
+		Visit Portal
+
+		</a>
+
+		</div>
+
+		</div>
+
+		<div class="footer">
+
+		<b>Samir Student Management System</b>
+
+		<br><br>
+
+		Thank you for registering with us.
+
+		<br><br>
+
+		This is an automatically generated email.
+
+		</div>
+
+		</div>
+
+		</body>
+
+		</html>
+		"""
+		.formatted(
+		        std.getName(),
+		        std.getName(),
+		        std.getEmail(),
+		        std.getCourse(),
+		        std.getTiming());
 
 		emailService.sendMail(std.getEmail(), subject, body);
-
+		
 		// ==============================================
 
-		redirectAttributes.addFlashAttribute("success", "Student Registered Successfully & Email Sent.");
-
+		redirectAttributes.addFlashAttribute("success",
+				"🎉 Student Registered Successfully! Welcome email has been sent.");
 		return "redirect:/display";
 	}
 
@@ -226,5 +451,33 @@ public class HomeController {
 		StudentPdfExporter exporter = new StudentPdfExporter(students);
 
 		exporter.export(response);
+	}
+	
+	@GetMapping("/dashboard")
+	public String dashboard(Model model) {
+
+	    model.addAttribute("totalStudents", service.getTotalStudents());
+
+	    model.addAttribute("maleStudents", service.getMaleStudents());
+
+	    model.addAttribute("femaleStudents", service.getFemaleStudents());
+
+	    model.addAttribute("javaStudents", service.getCourseCount("Java"));
+
+	    model.addAttribute("pythonStudents", service.getCourseCount("Python"));
+
+	    model.addAttribute("reactStudents", service.getCourseCount("React"));
+
+	    model.addAttribute("devopsStudents", service.getCourseCount("DevOps"));
+
+	    model.addAttribute("mernStudents", service.getCourseCount("MERN"));
+
+	    model.addAttribute("morningStudents", service.getTimingCount("Morning"));
+
+	    model.addAttribute("afternoonStudents", service.getTimingCount("Afternoon"));
+
+	    model.addAttribute("eveningStudents", service.getTimingCount("Evening"));
+
+	    return "dashboard";
 	}
 }

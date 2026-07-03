@@ -22,5 +22,14 @@ public interface StdService {
 		
 	Page<Student> getStudents(int page, String sortField, String sortDir);
 
+	long getTotalStudents();
+
+	long getMaleStudents();
+
+	long getFemaleStudents();
+
+	long getCourseCount(String course);
+
+	long getTimingCount(String timing);
 	
 }

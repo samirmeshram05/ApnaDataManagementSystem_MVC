@@ -21,7 +21,7 @@ public class StdServiceIMPL implements StdService {
 	@Override
 	public void stdsave(Student std) {
 		Student save = repo.save(std);
-		System.out.println("Save data from repo ...................");
+		System.out.println("Save data from repo ..................."+save);
 
 	}
 
@@ -72,6 +72,31 @@ public class StdServiceIMPL implements StdService {
 
 	    return repo.findAll(pageable);
 
+	}
+	
+	@Override
+	public long getTotalStudents() {
+	    return repo.count();
+	}
+
+	@Override
+	public long getMaleStudents() {
+	    return repo.countByGender("Male");
+	}
+
+	@Override
+	public long getFemaleStudents() {
+	    return repo.countByGender("Female");
+	}
+
+	@Override
+	public long getCourseCount(String course) {
+	    return repo.countByCourse(course);
+	}
+
+	@Override
+	public long getTimingCount(String timing) {
+	    return repo.countByTiming(timing);
 	}
 
 }

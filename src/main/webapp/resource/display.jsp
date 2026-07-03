@@ -132,6 +132,11 @@ body {
 
 							Add Student
 
+						</a> <a href="${pageContext.request.contextPath}/dashboard"
+							class="btn btn-dark"> <i class="bi bi-speedometer2"></i>
+
+							Dashboard
+
 						</a> <a href="${pageContext.request.contextPath}/display"
 							class="btn btn-info text-white"> <i
 							class="bi bi-arrow-clockwise"></i> Refresh
@@ -197,6 +202,23 @@ body {
 				</div>
 
 				<div class="table-responsive">
+
+					<c:if test="${not empty success}">
+						<div
+							class="alert alert-success alert-dismissible fade show shadow-lg border-0 rounded-4 mb-4"
+							role="alert"
+							style="background: linear-gradient(90deg, #28a745, #20c997); color: white;">
+
+							<h5 class="mb-1">
+								<i class="bi bi-check-circle-fill"></i> Success
+							</h5>
+
+							<p class="mb-0">${success}</p>
+
+							<button type="button" class="btn-close btn-close-white"
+								data-bs-dismiss="alert"></button>
+						</div>
+					</c:if>
 
 					<table class="table table-bordered table-hover table-striped">
 
